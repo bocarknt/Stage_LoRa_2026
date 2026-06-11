@@ -1,0 +1,10 @@
+../Core/Src/lora.c:28:6:LoRa_identifier	16	static
+../Core/Src/lora.c:40:6:LoRa_envoyer	144	static
+../Core/Src/lora.c:55:6:LoRa_send_data	272	static
+../Core/Src/lora.c:65:6:LoRa_recepteur	8	static
+../Core/Src/lora.c:77:6:LoRa_emetteur	8	static
+../Core/Src/lora.c:87:6:LoRa_afficher_rx	216	static
+../Core/Src/lora.c:120:6:hex_to_ascii	40	static
+../Core/Src/lora.c:133:6:LoRa_P2P_Init	80	static
+../Core/Src/lora.c:148:6:loraWAN_init	136	static
+../Core/Src/lora.c:197:6:loraWAN_send_data	272	static

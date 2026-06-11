@@ -1,0 +1,10 @@
+../Core/Src/lora.c:28:6:LoRa_identifier	1
+../Core/Src/lora.c:40:6:LoRa_envoyer	1
+../Core/Src/lora.c:55:6:LoRa_send_data	1
+../Core/Src/lora.c:65:6:LoRa_recepteur	1
+../Core/Src/lora.c:77:6:LoRa_emetteur	1
+../Core/Src/lora.c:87:6:LoRa_afficher_rx	5
+../Core/Src/lora.c:120:6:hex_to_ascii	6
+../Core/Src/lora.c:133:6:LoRa_P2P_Init	1
+../Core/Src/lora.c:148:6:loraWAN_init	1
+../Core/Src/lora.c:197:6:loraWAN_send_data	1

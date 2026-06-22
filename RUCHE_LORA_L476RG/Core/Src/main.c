@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
@@ -59,10 +60,10 @@ uint8_t rx_buffer[256];
 uint8_t rx_byte;
 volatile uint8_t rx_index    = 0;
 volatile uint8_t rx_complete = 0;
-
+uint32_t adc_buf[256];
 /////////////////////:::
 uint8_t rxBuf[254];
-char lcd_buf[254];
+char lcd_buf[256];
 char PIR_buf[32];
 rgb_lcd lcddata;
 int32_t raw_value=0;
@@ -126,6 +127,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM16_Init();
   MX_USART3_UART_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
   /**************** LCD init *************/
@@ -134,6 +136,8 @@ int main(void)
  // HAL_UART_Transmit(&huart2, rx_buffer, strlen(rx_buffer), 1000);
   reglagecouleur(255, 255, 255); // red backlight
   HAL_Delay(200);
+  HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
+  HAL_Delay(10);
 
   /**************** LORA Init ***********/
   	lcd_position(&hi2c1, 0, 0);
@@ -177,11 +181,13 @@ int main(void)
   //printf("Taring...\r\n");
 
   long tare_sum = 0;
+
   for(int i = 0; i < 10; i++)
   {
       tare_sum += HX711_ReadRaw(&hx711);
       HAL_Delay(100);
   }
+
   hx711.offset = tare_sum / 10;
   //printf("Tare offset: %ld\r\n", hx711.offset);
 
@@ -194,7 +200,7 @@ int main(void)
   float temperature, humidite;
   sht31_request(&hi2c1);
   HAL_Delay(100);
-
+  int int_voltage=0;
 
   /* USER CODE END 2 */
 
@@ -205,14 +211,26 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+/*************** Lecture de la tension de la batterie ****************/
+	  HAL_ADC_Start(&hadc1);
+	  if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK) {
+	  	      uint32_t val = HAL_ADC_GetValue(&hadc1);
+	  	      float voltage = (val / 4095.0f) * 3.3f;
+	  	      int_voltage = (int)(voltage * 100);
+	  	      snprintf(lcd_buf, sizeof(lcd_buf), "Tension:%d.%02d V", int_voltage/100, int_voltage%100);
+	  	      //clearlcd();
+	  	      lcd_position(&hi2c1, 0, 0);
+	  	      lcd_print(&hi2c1, lcd_buf);
+	  	      HAL_Delay(1000);
+	  	  }
+	  	  HAL_ADC_Stop(&hadc1);
 
-	    // Weight reading
-	    float weight_g = HX711_GetWeight(&hx711);
+/******************* Lecture de la masse  *******************************/
+	    float weight_g =HX711_GetWeight(&hx711);
 	    float weight_kg = weight_g / 1000.0f;
 	    int kg_int = (int)weight_kg;
 	    int kg_dec = (int)((weight_kg - kg_int) * 1000);
 	    if(kg_dec < 0) kg_dec = -kg_dec;
-
 	    snprintf(lcd_buf, sizeof(lcd_buf), "P:%d.%03d kg", kg_int, kg_dec);
 	    //LoRa_send_data(lcd_buf);
 	    //loraWAN_send_data(lcd_buf);
@@ -221,41 +239,34 @@ int main(void)
 	    lcd_print(&hi2c1, lcd_buf);
 	    HAL_Delay(2000);
 
-	    // LCD line 2 — PIR status
-	    lcd_position(&hi2c1, 0, 1);
-
-	    if(pir_detected/*HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5) == GPIO_PIN_SET*/)
+/********************* Affichage de mouvement détecté *****************/
+	    if(pir_detected)
 	    {
+	       lcd_position(&hi2c1, 0, 1);
 	       lcd_print(&hi2c1, "Motion detect!");
-
-
 	        //snprintf(PIR_buf, sizeof(PIR_buf), "  Motion detect  ");
 	        //LoRa_send_data(lcd_buf);
 	        //loraWAN_send_data(lcd_buf);
+	       HAL_Delay(1000);
 	    }
-	    else
+	   /* else
 	    {
 	        lcd_print(&hi2c1, "No motion");
-
 	        pir_detected=0;
 	        //snprintf(PIR_buf, sizeof(PIR_buf), "  No Motion  ");
 	       // LoRa_send_data(lcd_buf);
 	        //loraWAN_send_data(lcd_buf);
-	    }
-/*
-	    if(pir_detected && (HAL_GetTick() - pir_last_trigger > 5000))
-	    {
-	        pir_detected = 0;
-	        //reglagecouleur(255, 255, 255);
-	    }
-*/
-	    HAL_Delay(1000);
-	    //Lecture de la température et de l'humidite
+	         HAL_Delay(1000);
+	    }*/
+
+
+/***************** Lecture de la température et de l'humidite extérieur de la ruche  avec le SHT31 ************************/
 	    sht31_read(&hi2c1,&temperature, &humidite);
 
 	    //affichage de la température et de l'humidite
 	    lcd_affichage(&hi2c1, temperature, humidite);
 
+/*************** Lecture de la température intérieur avec le DHT11 *******************/
 	   int T =temperature *100;//pour l'affichage
 	   int H=humidite*100;//pour l'affichage
 	   // Always read DHT11 (inside)
@@ -290,18 +301,28 @@ int main(void)
 		    lcd_position(&hi2c1, 0, 1);
 		    lcd_print(&hi2c1, lcd_buf);
 		    HAL_Delay(2000);
-	   snprintf(lcd_buf, sizeof(lcd_buf),"P:%d.%03d  Tout:%d.%2d Hout:%d.%2d Tin:%d Hin:%d %d", kg_int, kg_dec,(T/100),(T%100),(H/100),(H%100),temp_in, hum_in, pir_detected);
+
+/************* Transmission des données par LoRaWAN   ************************/
+	   snprintf(lcd_buf, sizeof(lcd_buf),"P:%d.%03d  Tout:%d.%2d Hout:%d.%2d Tin:%d Hin:%d %d ", kg_int, kg_dec,(T/100),(T%100),(H/100),(H%100),temp_in, hum_in, pir_detected);
 	   loraWAN_send_data(lcd_buf);
+	   HAL_Delay(5000);
+	   snprintf(lcd_buf, sizeof(lcd_buf),"Vin:%d.%2d V",int_voltage/100,int_voltage%100);
+	   loraWAN_send_data(lcd_buf);
+	   HAL_Delay(5000);
 	   clearlcd();
 	   lcd_position(&hi2c1, 0, 0);
 	   lcd_print(&hi2c1, "DATA SENT");
-	   HAL_Delay(1000);
+
+
+
+	   HAL_Delay(10000);
+
 
 
   }
 
 
-	  ////// Teste loraWAN//////////////////
+
 
   /* USER CODE END 3 */
 }

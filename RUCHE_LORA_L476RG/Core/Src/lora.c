@@ -156,43 +156,43 @@ void loraWAN_init(void)
 	  // Réponse attendue : +AT: OK
 
 	  // --- ÉTAPE 2 : Reset du module ---
-	  AT_Send("AT+RESET\r\n", 3000);
-	  HAL_Delay(2000);
+	  AT_Send("AT+RESET\r\n", 2000);
+	  //HAL_Delay(2000);
 	/*
 	  //AT_Send("AT+ID\r\n", 3000);
 	  LoRa_identifier("AT+ID\r\n");
 	  HAL_Delay(2000);
 	  LoRa_identifier("AT+ID\r\n");
 	 */
-	  HAL_Delay(2000);
+	  HAL_Delay(1000);
 
 
 	  // --- ÉTAPE 3 : Récupérer et afficher le DevEUI ---
-	  AT_Send("AT+ID=DevEui\r\n", 2000);
+	  AT_Send("AT+ID=DevEui\r\n", 1000);
 	  // Réponse ex : +ID: DevEui, 2C:F7:F1:20:24:90:03:63
 	  // ⚠️ Notez cette valeur pour l'enregistrer sur TTN !
 
 	  // --- ÉTAPE 4 : Configurer la région Europe ---
-	  AT_Send("AT+DR=EU868\r\n", 2000);
+	  AT_Send("AT+DR=EU868\r\n", 1000);
 
 	  // --- ÉTAPE 5 : Configurer les clés OTAA ---
 	  sprintf(cmd, "AT+ID=DevEui,\"%s\"\r\n", DEV_EUI);
-	  AT_Send(cmd, 2000);
+	  AT_Send(cmd, 1000);
 
 	  sprintf(cmd, "AT+ID=AppEui,\"%s\"\r\n", APP_EUI);
-	  AT_Send(cmd, 2000);
+	  AT_Send(cmd, 1000);
 
 	  sprintf(cmd, "AT+KEY=AppKey,\"%s\"\r\n", APP_KEY);
-	  AT_Send(cmd, 2000);
+	  AT_Send(cmd, 1000);
 
 	  // --- ÉTAPE 6 : Mode OTAA ---
-	  AT_Send("AT+MODE=LWOTAA\r\n", 2000);
+	  AT_Send("AT+MODE=LWOTAA\r\n", 1000);
 
 	  // --- ÉTAPE 7 : Rejoindre le réseau TTN ---
-	  AT_Send("AT+JOIN\r\n", 10000);
+	  AT_Send("AT+JOIN\r\n", 2000);
 	  // Réponse attendue : +JOIN: Network joined
 
-	  HAL_Delay(5000);  // Attendre confirmation JOIN
+	  HAL_Delay(1000);  // Attendre confirmation JOIN
 }
 void loraWAN_send_data(char* data)
 {

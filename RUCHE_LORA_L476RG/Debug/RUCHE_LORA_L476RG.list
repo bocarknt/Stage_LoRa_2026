@@ -7,23 +7,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         000089b0  08000190  08000190  00001190  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000380  08008b40  08008b40  00009b40  2**2
+  2 .rodata       000003b0  08008b40  08008b40  00009b40  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08008ec0  08008ec0  0000a05c  2**0
+  3 .ARM.extab    00000000  08008ef0  08008ef0  0000a05c  2**0
                   CONTENTS, READONLY
-  4 .ARM          00000008  08008ec0  08008ec0  00009ec0  2**2
+  4 .ARM          00000008  08008ef0  08008ef0  00009ef0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08008ec8  08008ec8  0000a05c  2**0
+  5 .preinit_array 00000000  08008ef8  08008ef8  0000a05c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08008ec8  08008ec8  00009ec8  2**2
+  6 .init_array   00000004  08008ef8  08008ef8  00009ef8  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .fini_array   00000004  08008ecc  08008ecc  00009ecc  2**2
+  7 .fini_array   00000004  08008efc  08008efc  00009efc  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         0000005c  20000000  08008ed0  0000a000  2**2
+  8 .data         0000005c  20000000  08008f00  0000a000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          000006b4  2000005c  08008f2c  0000a05c  2**2
+  9 .bss          000006b4  2000005c  08008f5c  0000a05c  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  20000710  08008f2c  0000a710  2**0
+ 10 ._user_heap_stack 00000600  20000710  08008f5c  0000a710  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  0000a05c  2**0
                   CONTENTS, READONLY
@@ -37,11 +37,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  0002b55d  00000000  00000000  0002d818  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001dfa4  00000000  00000000  00058d75  2**0
+ 17 .debug_line   0001dfa6  00000000  00000000  00058d75  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0010ab16  00000000  00000000  00076d19  2**0
+ 18 .debug_str    0010ab16  00000000  00000000  00076d1b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  0018182f  2**0
+ 19 .comment      00000043  00000000  00000000  00181831  2**0
                   CONTENTS, READONLY
  20 .debug_frame  0000663c  00000000  00000000  00181874  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -2256,18 +2256,18 @@ void loraWAN_init(void)
  800113a:	46bd      	mov	sp, r7
  800113c:	bd80      	pop	{r7, pc}
  800113e:	bf00      	nop
- 8001140:	08008c00 	.word	0x08008c00
- 8001144:	08008bf8 	.word	0x08008bf8
- 8001148:	08008c0c 	.word	0x08008c0c
- 800114c:	08008c1c 	.word	0x08008c1c
- 8001150:	08008c2c 	.word	0x08008c2c
- 8001154:	08008c40 	.word	0x08008c40
- 8001158:	08008c54 	.word	0x08008c54
- 800115c:	08008c68 	.word	0x08008c68
- 8001160:	08008c7c 	.word	0x08008c7c
- 8001164:	08008ca0 	.word	0x08008ca0
- 8001168:	08008cb8 	.word	0x08008cb8
- 800116c:	08008ccc 	.word	0x08008ccc
+ 8001140:	08008c30 	.word	0x08008c30
+ 8001144:	08008c28 	.word	0x08008c28
+ 8001148:	08008c3c 	.word	0x08008c3c
+ 800114c:	08008c4c 	.word	0x08008c4c
+ 8001150:	08008c5c 	.word	0x08008c5c
+ 8001154:	08008c70 	.word	0x08008c70
+ 8001158:	08008c84 	.word	0x08008c84
+ 800115c:	08008c98 	.word	0x08008c98
+ 8001160:	08008cac 	.word	0x08008cac
+ 8001164:	08008cd0 	.word	0x08008cd0
+ 8001168:	08008ce8 	.word	0x08008ce8
+ 800116c:	08008cfc 	.word	0x08008cfc
 
 08001170 <loraWAN_send_data>:
 void loraWAN_send_data(char* data)
@@ -2333,7 +2333,7 @@ void loraWAN_send_data(char* data)
  80011fc:	bd80      	pop	{r7, pc}
  80011fe:	bf00      	nop
  8001200:	20000234 	.word	0x20000234
- 8001204:	08008cd8 	.word	0x08008cd8
+ 8001204:	08008d08 	.word	0x08008d08
  8001208:	2000053c 	.word	0x2000053c
  800120c:	200004b4 	.word	0x200004b4
 
@@ -2424,10 +2424,15 @@ int main(void)
  800127e:	492e      	ldr	r1, [pc, #184]	@ (8001338 <main+0x128>)
  8001280:	482a      	ldr	r0, [pc, #168]	@ (800132c <main+0x11c>)
  8001282:	f7ff fe69 	bl	8000f58 <lcd_print>
-  loraWAN_init(); //configurer le module lora en mode OTAA
+    loraWAN_init(); //configurer le module lora en mode OTAA
  8001286:	f7ff fef5 	bl	8001074 <loraWAN_init>
-  HAL_Delay(200);
- 800128a:	20c8      	movs	r0, #200	@ 0xc8
+  /*while(1)
+  {
+	  loraWAN_send_data("Hola\n\r");
+	  HAL_Delay(100);
+  }*/
+  HAL_Delay(100);
+ 800128a:	2064      	movs	r0, #100	@ 0x64
  800128c:	f000 ff4c 	bl	8002128 <HAL_Delay>
   //LoRa_emetteur();// configurer le module en émetteur
   HAL_Delay(200);
@@ -2522,15 +2527,15 @@ int main(void)
  8001328:	20000434 	.word	0x20000434
  800132c:	200000dc 	.word	0x200000dc
  8001330:	20000078 	.word	0x20000078
- 8001334:	08008ce8 	.word	0x08008ce8
- 8001338:	08008cf8 	.word	0x08008cf8
- 800133c:	08008d10 	.word	0x08008d10
- 8001340:	08008d1c 	.word	0x08008d1c
- 8001344:	08008d2c 	.word	0x08008d2c
- 8001348:	08008d40 	.word	0x08008d40
+ 8001334:	08008d18 	.word	0x08008d18
+ 8001338:	08008d28 	.word	0x08008d28
+ 800133c:	08008d40 	.word	0x08008d40
+ 8001340:	08008d4c 	.word	0x08008d4c
+ 8001344:	08008d5c 	.word	0x08008d5c
+ 8001348:	08008d70 	.word	0x08008d70
  800134c:	20000468 	.word	0x20000468
  8001350:	20000438 	.word	0x20000438
- 8001354:	08008d54 	.word	0x08008d54
+ 8001354:	08008d84 	.word	0x08008d84
   {
       tare_sum += HX711_ReadRaw(&hx711);
  8001358:	48a1      	ldr	r0, [pc, #644]	@ (80015e0 <main+0x3d0>)
@@ -2859,18 +2864,18 @@ int main(void)
  80015e0:	20000438 	.word	0x20000438
  80015e4:	66666667 	.word	0x66666667
  80015e8:	200000dc 	.word	0x200000dc
- 80015ec:	08008d68 	.word	0x08008d68
+ 80015ec:	08008d98 	.word	0x08008d98
  80015f0:	20000078 	.word	0x20000078
  80015f4:	457ff000 	.word	0x457ff000
  80015f8:	40533333 	.word	0x40533333
  80015fc:	42c80000 	.word	0x42c80000
  8001600:	51eb851f 	.word	0x51eb851f
- 8001604:	08008d7c 	.word	0x08008d7c
+ 8001604:	08008dac 	.word	0x08008dac
  8001608:	20000334 	.word	0x20000334
  800160c:	447a0000 	.word	0x447a0000
- 8001610:	08008d90 	.word	0x08008d90
+ 8001610:	08008dc0 	.word	0x08008dc0
  8001614:	20000460 	.word	0x20000460
- 8001618:	08008da0 	.word	0x08008da0
+ 8001618:	08008dd0 	.word	0x08008dd0
  800161c:	20000450 	.word	0x20000450
  8001620:	20000451 	.word	0x20000451
  8001624:	20000452 	.word	0x20000452
@@ -3039,8 +3044,8 @@ int main(void)
 
 
 
-	   HAL_Delay(10000);
- 800177c:	f242 7010 	movw	r0, #10000	@ 0x2710
+	   HAL_Delay(500);
+ 800177c:	f44f 70fa 	mov.w	r0, #500	@ 0x1f4
  8001780:	f000 fcd2 	bl	8002128 <HAL_Delay>
   {
  8001784:	e618      	b.n	80013b8 <main+0x1a8>
@@ -3049,15 +3054,15 @@ int main(void)
  800178c:	20000458 	.word	0x20000458
  8001790:	20000450 	.word	0x20000450
  8001794:	2000045c 	.word	0x2000045c
- 8001798:	08008db0 	.word	0x08008db0
+ 8001798:	08008de0 	.word	0x08008de0
  800179c:	20000334 	.word	0x20000334
  80017a0:	200000dc 	.word	0x200000dc
- 80017a4:	08008dc0 	.word	0x08008dc0
+ 80017a4:	08008df0 	.word	0x08008df0
  80017a8:	51eb851f 	.word	0x51eb851f
  80017ac:	20000460 	.word	0x20000460
- 80017b0:	08008dd0 	.word	0x08008dd0
- 80017b4:	08008e08 	.word	0x08008e08
- 80017b8:	08008e18 	.word	0x08008e18
+ 80017b0:	08008e00 	.word	0x08008e00
+ 80017b4:	08008e38 	.word	0x08008e38
+ 80017b8:	08008e48 	.word	0x08008e48
 
 080017bc <SystemClock_Config>:
 /**
@@ -3671,8 +3676,8 @@ void lcd_affichage(I2C_HandleTypeDef* I2Cx, float temperature, float humidite)
  8001be2:	bf00      	nop
  8001be4:	42c80000 	.word	0x42c80000
  8001be8:	51eb851f 	.word	0x51eb851f
- 8001bec:	08008e24 	.word	0x08008e24
- 8001bf0:	08008e34 	.word	0x08008e34
+ 8001bec:	08008e54 	.word	0x08008e54
+ 8001bf0:	08008e64 	.word	0x08008e64
 
 08001bf4 <HAL_MspInit>:
 /* USER CODE END 0 */
@@ -4577,7 +4582,7 @@ LoopForever:
   ldr r1, =_edata
  800202c:	2000005c 	.word	0x2000005c
   ldr r2, =_sidata
- 8002030:	08008ed0 	.word	0x08008ed0
+ 8002030:	08008f00 	.word	0x08008f00
   ldr r2, =_sbss
  8002034:	2000005c 	.word	0x2000005c
   ldr r4, =_ebss
@@ -13346,7 +13351,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
  8005220:	e014      	b.n	800524c <HAL_RCC_OscConfig+0x298>
  8005222:	bf00      	nop
  8005224:	40021000 	.word	0x40021000
- 8005228:	08008e44 	.word	0x08008e44
+ 8005228:	08008e74 	.word	0x08008e74
  800522c:	20000000 	.word	0x20000000
  8005230:	20000004 	.word	0x20000004
  8005234:	4ba0      	ldr	r3, [pc, #640]	@ (80054b8 <HAL_RCC_OscConfig+0x504>)
@@ -14651,7 +14656,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef  *RCC_ClkInitStru
  8005956:	bd80      	pop	{r7, pc}
  8005958:	40022000 	.word	0x40022000
  800595c:	40021000 	.word	0x40021000
- 8005960:	08008e44 	.word	0x08008e44
+ 8005960:	08008e74 	.word	0x08008e74
  8005964:	20000000 	.word	0x20000000
  8005968:	20000004 	.word	0x20000004
 
@@ -14856,7 +14861,7 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
  8005a70:	4770      	bx	lr
  8005a72:	bf00      	nop
  8005a74:	40021000 	.word	0x40021000
- 8005a78:	08008e5c 	.word	0x08008e5c
+ 8005a78:	08008e8c 	.word	0x08008e8c
  8005a7c:	00f42400 	.word	0x00f42400
  8005a80:	007a1200 	.word	0x007a1200
 
@@ -14905,7 +14910,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8005abc:	4618      	mov	r0, r3
  8005abe:	bd80      	pop	{r7, pc}
  8005ac0:	40021000 	.word	0x40021000
- 8005ac4:	08008e54 	.word	0x08008e54
+ 8005ac4:	08008e84 	.word	0x08008e84
 
 08005ac8 <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -14932,7 +14937,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8005ae8:	4618      	mov	r0, r3
  8005aea:	bd80      	pop	{r7, pc}
  8005aec:	40021000 	.word	0x40021000
- 8005af0:	08008e54 	.word	0x08008e54
+ 8005af0:	08008e84 	.word	0x08008e84
 
 08005af4 <RCC_SetFlashLatencyFromMSIRange>:
             voltage range.
@@ -21589,10 +21594,10 @@ __weak void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
  800827a:	4798      	blx	r3
  800827c:	3601      	adds	r6, #1
  800827e:	e7f2      	b.n	8008266 <__libc_init_array+0x1e>
- 8008280:	08008ec8 	.word	0x08008ec8
- 8008284:	08008ec8 	.word	0x08008ec8
- 8008288:	08008ec8 	.word	0x08008ec8
- 800828c:	08008ecc 	.word	0x08008ecc
+ 8008280:	08008ef8 	.word	0x08008ef8
+ 8008284:	08008ef8 	.word	0x08008ef8
+ 8008288:	08008ef8 	.word	0x08008ef8
+ 800828c:	08008efc 	.word	0x08008efc
 
 08008290 <__retarget_lock_acquire_recursive>:
  8008290:	4770      	bx	lr
@@ -21875,11 +21880,11 @@ __weak void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
  8008528:	4638      	mov	r0, r7
  800852a:	f000 f91b 	bl	8008764 <_printf_i>
  800852e:	e7ed      	b.n	800850c <_svfiprintf_r+0x1c0>
- 8008530:	08008e8c 	.word	0x08008e8c
- 8008534:	08008e96 	.word	0x08008e96
+ 8008530:	08008ebc 	.word	0x08008ebc
+ 8008534:	08008ec6 	.word	0x08008ec6
  8008538:	00000000 	.word	0x00000000
  800853c:	08008295 	.word	0x08008295
- 8008540:	08008e92 	.word	0x08008e92
+ 8008540:	08008ec2 	.word	0x08008ec2
 
 08008544 <sbrk_aligned>:
  8008544:	b570      	push	{r4, r5, r6, lr}
@@ -22348,8 +22353,8 @@ __weak void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
  8008990:	2500      	movs	r5, #0
  8008992:	f104 0619 	add.w	r6, r4, #25
  8008996:	e7f5      	b.n	8008984 <_printf_i+0x220>
- 8008998:	08008e9d 	.word	0x08008e9d
- 800899c:	08008eae 	.word	0x08008eae
+ 8008998:	08008ecd 	.word	0x08008ecd
+ 800899c:	08008ede 	.word	0x08008ede
 
 080089a0 <__malloc_lock>:
  80089a0:	4801      	ldr	r0, [pc, #4]	@ (80089a8 <__malloc_lock+0x8>)

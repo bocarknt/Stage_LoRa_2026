@@ -140,7 +140,7 @@ void LoRa_P2P_Init(UART_HandleTypeDef *huart)
     HAL_Delay(100);
 
     // Config radio
-    snprintf((char*)cmd, sizeof(cmd), "AT+TEST=RFCFG,868,SF7,125,8,8,14,ON,OFF,OFF\r\n");
+    snprintf((char*)cmd, sizeof(cmd), "AT+TEST=RFCFG,868,SF7,125,8,8,22,ON,OFF,OFF\r\n");
     HAL_UART_Transmit(huart, cmd, strlen((char*)cmd), 1000);
     HAL_Delay(100);
 }

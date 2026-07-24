@@ -144,8 +144,22 @@ int main(void)
     lcd_print(&hi2c1, "LoRaWAN init");
     lcd_position(&hi2c1, 0, 1);
     lcd_print(&hi2c1, "Lora Join network...");
-  loraWAN_init(); //configurer le module lora en mode OTAA
-  HAL_Delay(200);
+    loraWAN_init(); //configurer le module lora en mode OTAA
+   /* LoRa_P2P_Init(&huart3);
+    while(1)
+    {
+
+    	LoRa_send_data("Hello");
+    	//HAL_Delay(1000);
+    }
+    */
+
+  /*while(1)
+  {
+	  loraWAN_send_data("Hola\n\r");
+	  HAL_Delay(100);
+  }*/
+  HAL_Delay(100);
 /*
   //LoRa_identifier("AT+VER\r\n"); // Version de LORA E5
   LoRa_identifier("AT+RESET\r\n"); // Reset le module LORA E5
@@ -315,7 +329,7 @@ int main(void)
 
 
 
-	   HAL_Delay(10000);
+	   HAL_Delay(500);
 
 
 
